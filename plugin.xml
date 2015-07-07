@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="net.nopattern.cordova.gtm"
+        version="0.1.0">
+  <name>GTMPlugin</name>
+
+  <js-module name="GTMPlugin" src="www/GTMPlugin.js">
+    <clobbers target="cordova.plugins.GTMPlugin" />
+  </js-module>
+
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="GTMPlugin">
+        <param name="android-package" value="net.nopattern.cordova.gtm.GTMPlugin" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+    <config-file parent="/manifest" target="AndroidManifest.xml">
+      <!-- For TagManager SDK -->
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    </config-file>
+    <!-- src -->
+    <source-file src="src/android/GTMPluginConstant.java" target-dir="src/net/nopattern/cordova/beacon" />
+    <source-file src="src/android/GTMPlugin.java" target-dir="src/net/nopattern/cordova/gtm" />
+    <!-- frameworks -->
+    <framework src="com.google.android.gms:play-services-analytics:7.0.0" />
+  </platform>
+
+  <platform name="ios">
+    <config-file parent="/*" target="config.xml">
+      <feature name="GTMPlugin">
+        <param name="ios-package" value="GTMPlugin" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+    <!-- src -->
+    <header-file src="src/ios/GTMPlugin.h" />
+    <source-file src="src/ios/GTMPlugin.m" />
+    <!-- libs -->
+    <source-file src="src/ios/libs/gtm/libGoogleAnalyticsServices.a" framework="true" />
+    <header-file src="src/ios/libs/gtm/TAGContainer.h" />
+    <header-file src="src/ios/libs/gtm/TAGContainerOpener.h" />
+    <header-file src="src/ios/libs/gtm/TAGDataLayer.h" />
+    <header-file src="src/ios/libs/gtm/TAGLogger.h" />
+    <header-file src="src/ios/libs/gtm/TAGManager.h" />
+    <!-- frameworks -->
+    <framework src="CoreData.framework" />
+    <framework src="SystemConfiguration.framework" />
+    <framework src="libz.dylib" />
+    <framework src="libsqlite3.dylib" />
+  </platform>
+</plugin>
